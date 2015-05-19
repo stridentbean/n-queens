@@ -32,17 +32,37 @@ window.findNRooksSolution = function(n) {
 window.countNRooksSolutions = function(n) {
   var solutionCount = _.reduce(_.range(1,n+1), function(a,b) {
     return a * b;
-  }, 1); //fixme
+  }, 1); // The Determinant of a n*n matrix gives the complete set of possible n rook solutions
+  //ie:       |a b c|
+  //    |3| = |d e f| = aei + bfg + cdh - ceg - bdi - afh
+  //          |g h i|
 
   console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
   return solutionCount;
 };
 
-
+//var row = {}; var col = {}; var major = {}; var minor = {}
+//row[0] = true; col[0] = true; major[0] = true
+//count
+//if(!row[r] && !col[c] && !major[m] && !minor[i]) {
+//  place next queen at (r,c)
+//
+//  update r c m i;
+//}
+//
+//instantiate RCMI
+//instantiate solutionGrid
+//iterate through cols
+//
+//  iterate through rows
+//    if safe spot determined by RCMI objects
+//      place queen at row,col
+//
+//
 
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n queens placed such that none of them can attack each other
 window.findNQueensSolution = function(n) {
-  var solution = undefined; //fixme
+  var solution = undefined;
 
   console.log('Single solution for ' + n + ' queens:', JSON.stringify(solution));
   return solution;

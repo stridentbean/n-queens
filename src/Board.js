@@ -164,7 +164,7 @@
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
-      for(var i = -this.get('n')+ 1; i < this.get('n'); i++) {
+      for(var i = 0; i < 2*this.get('n') + 1; i++) {
         if(this.hasMinorDiagonalConflictAt(i)) {
           return true;
         }
