@@ -52,11 +52,10 @@ window.countNRooksSolutions = function(n) {
 //
 //instantiate RCMI
 //instantiate solutionGrid
-//iterate through cols
-//
-//  iterate through rows
+//iterate through cols on current row
 //    if safe spot determined by RCMI objects
 //      place queen at row,col
+//      recurse on next row
 //
 //
 
@@ -71,8 +70,25 @@ window.findNQueensSolution = function(n) {
 
 // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
 window.countNQueensSolutions = function(n) {
-  var solutionCount = undefined; //fixme
+  var solutionCount = 0;
+  var board = new Board({'n':n});
+  var helper = function nQueensHelper(row, myBoard) {
+    for(var c = 0; c < n; c++) {
+      if (!myBoard.hasAnyQueenConflictsOn(row, c)) {
+        var newBoard = new Board(myBoard);
+        if (n === 2) debugger; //check major
+        newBoard.togglePiece(row, c);
+        if (row + 1 < n) {
+          helper(row+1,newBoard);
+        } else {
+          solutionCount++;
+        }
+      }
+    }
+  };
 
+  helper(0,board);
+  console.log(solutionCount);
   console.log('Number of solutions for ' + n + ' queens:', solutionCount);
   return solutionCount;
 };

@@ -11,10 +11,22 @@
         console.log('Good guess! But to use the Board() constructor, you must pass it an argument in one of the following formats:');
         console.log('\t1. An object. To create an empty board of size n:\n\t\t{n: %c<num>%c} - Where %c<num> %cis the dimension of the (empty) board you wish to instantiate\n\t\t%cEXAMPLE: var board = new Board({n:5})', 'color: blue;', 'color: black;','color: blue;', 'color: black;', 'color: grey;');
         console.log('\t2. An array of arrays (a matrix). To create a populated board of size n:\n\t\t[ [%c<val>%c,%c<val>%c,%c<val>%c...], [%c<val>%c,%c<val>%c,%c<val>%c...], [%c<val>%c,%c<val>%c,%c<val>%c...] ] - Where each %c<val>%c is whatever value you want at that location on the board\n\t\t%cEXAMPLE: var board = new Board([[1,0,0],[0,1,0],[0,0,1]])', 'color: blue;', 'color: black;','color: blue;', 'color: black;', 'color: blue;', 'color: black;', 'color: blue;', 'color: black;', 'color: blue;', 'color: black;', 'color: blue;', 'color: black;', 'color: blue;', 'color: black;', 'color: blue;', 'color: black;', 'color: blue;', 'color: black;', 'color: blue;', 'color: black;', 'color: grey;');
+      } else if (params instanceof Board) {
+        this.set('n', params.get('n'));
+        this.set(makeEmptyMatrix(params.get('n')));
+        this.copy(params);
       } else if (params.hasOwnProperty('n')) {
         this.set(makeEmptyMatrix(this.get('n')));
       } else {
         this.set('n', params.length);
+      }
+    },
+
+    copy: function(oldBoard) { //todo: set current row optimization
+      for (var x = 0; x < oldBoard.get('n'); x++) {
+        for(var y = 0; y < oldBoard.get('n'); y++) {
+          if(oldBoard.get(x)[y] === 1) this.togglePiece(x,y);
+        }
       }
     },
 
@@ -101,6 +113,7 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
+      //if (this.get('n') === 2) debugger;
       var result = 0;
       for(var i =0; i< this.get('n'); i++) {
         result = result + this.get(i)[colIndex];
