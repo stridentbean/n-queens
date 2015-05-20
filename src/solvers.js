@@ -69,11 +69,11 @@ window.findNQueensSolution = function(n) {
     for(var c = 0; c < n; c++) {
       myBoard.togglePiece(row, c);
       if (!myBoard.hasAnyQueenConflictsOn(row, c)) {
-        var newBoard = new Board(myBoard);
+      //  var newBoard = new Board(myBoard);
 
         //newBoard.togglePiece(row, c);
         if (row + 1 < n) {
-          var result = helper(row+1,newBoard);
+          var result = helper(row+1,myBoard);
           if(!!result) {
             return result;
           }

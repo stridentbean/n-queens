@@ -14,12 +14,11 @@
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n rooks placed such that none of them can attack each other
 
 window.findNRooksSolution = function(n) {
-
-  var board = new Board({'n':n});
+  var board = new BitwiseBoard({'n':n});
   var solution = [];
   for(var i =0; i < n; i++) {
     board.togglePiece(i,i);
-    solution.push(board.get(i));
+    solution.push(board['board'][i]);
   }
 
   console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
@@ -64,12 +63,12 @@ window.findNQueensSolution = function(n) {
   var solution = [];
 
 
-  var board = new Board({'n':n});
+  var board = new BitwiseBoard({'n':n});
   var helper = function nQueensHelper(row, myBoard) {
     for(var c = 0; c < n; c++) {
       myBoard.togglePiece(row, c);
       if (!myBoard.hasAnyQueenConflictsOn(row, c)) {
-        var newBoard = new Board(myBoard);
+        var newBoard = new BitwiseBoard(myBoard);
 
         //newBoard.togglePiece(row, c);
         if (row + 1 < n) {
@@ -106,12 +105,12 @@ window.findNQueensSolution = function(n) {
 window.countNQueensSolutions = function(n) {
   //if (n === 4) debugger; //check major
   var solutionCount = 0;
-  var board = new Board({'n':n});
+  var board = new BitwiseBoard({'n':n});
   var helper = function nQueensHelper(row, myBoard) {
     for(var c = 0; c < n; c++) {
       myBoard.togglePiece(row, c);
       if (!myBoard.hasAnyQueenConflictsOn(row, c)) {
-        var newBoard = new Board(myBoard);
+        var newBoard = new BitwiseBoard(myBoard);
 
         //newBoard.togglePiece(row, c);
         if (row + 1 < n) {
